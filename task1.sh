@@ -1,6 +1,7 @@
-#!/usr/bin/env bash
+#! /usr/bin/env bash
 
-function Help(){
+
+function Help() {
     echo "-q Q               对JPEG格式图片进行质量压缩 质量因子为Q"
     echo "-r R               对JPEG/PNG/SVG格式图片在保持原始宽高比的前提下压缩分辨率 R"
     echo "-w font_size text  对图片批量添加自定义文本水印"
@@ -11,7 +12,7 @@ function Help(){
 }
 
 #对JPEG格式图片进行质量压缩
-function QualityCompression{
+function QualityCompression {
     Q=$1
     for i in *;do
         type=${i##*.}
@@ -23,7 +24,7 @@ function QualityCompression{
 }
 
 #对jpeg/png/svg格式图片在保持原始宽高比的前提下压缩分辨率
-function CompressionResolution{
+function CompressionResolution {
     R=$1
     for i in *;do
         type=${i##*.}
@@ -35,18 +36,17 @@ function CompressionResolution{
 }
 
 #对图片批量添加自定义文本水印
-function AddCustomWatermark{
+function AddCustomWatermark {
     for i in *;do
         type=${i##*.}
-        if [[ ${type} != "jpg" && ${type} != "png" && ${type} != "svg" && ${type} != "jpeg" && ${type} != "JPEG" ]];then continue;
-        fi;
+        if [[ ${type} != "jpg" && ${type} != "png" && ${type} != "svg" && ${type} != "jpeg" && ${type} != "JPEG" ]];then continue;fi;
         convert "${i}" -pointsize "$1" -fill blue -gravity center -draw "text 10,15 '$2'" "${i}"
         echo "${i} 自定义文本水印 $2 已添加完成"
     done
 }
 
 #批量重命名，统一添加文件名前缀，不影响原始文件扩展名
-function AddPrefix{
+function AddPrefix {
     for i in *;do
         type=${i##*.}
         if [[ ${type} != "jpg" && ${type} != "png" && ${type} != "svg" && ${type} != "jpeg" && ${type} != "JPEG" ]]; then continue; fi;
@@ -56,7 +56,7 @@ function AddPrefix{
 }
 
 #批量重命名：统一添加文件名后缀，不影响原始文件扩展名
-function AddSuffix{
+function AddSuffix {
     for i in *;do
         type=${i##*.}
         if [[ ${type} != "jpg" && ${type} != "png" && ${type} != "svg" && ${type} != "jpeg" && ${type} != "JPEG" ]]; then continue; fi;
@@ -67,7 +67,7 @@ function AddSuffix{
 }
 
 #将png/svg图片统一转换为jpg格式图片
-function ImageTransition_jpg{
+function ImageTransition_jpg {
     for i in *;do
         type=${i##*.}
         if [[ ${type} == "png" || ${type} == "svg" ]]; then
